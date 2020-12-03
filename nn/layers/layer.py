@@ -1,11 +1,17 @@
 from ..fn import *
 
 class Layer(object):
+  def setup(self, input_size):
+    return input_size
+
   def forward(self, x):
-    pass
+    return 0
 
   def backward(self, dA, optimizer, alpha):
-    pass
+    return 0
+
+  def predict(self, x):
+    return 0
 
   def set_params(self, activation='sigmoid'):
     if activation == 'sigmoid':

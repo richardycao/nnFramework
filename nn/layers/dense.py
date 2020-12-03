@@ -36,3 +36,6 @@ class Dense(Layer):
     dX = np.dot(self.w.T, dz)
     
     return dX
+
+  def predict(self, x):
+    return self.forward(x)

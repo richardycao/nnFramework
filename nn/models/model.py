@@ -25,6 +25,9 @@ class Model(object):
   def fit(self, X, y, epochs=1, alpha=0.01):
     pass
 
+  def predict(self, X):
+    return 0
+
   def forward(self, x):
     return x
 

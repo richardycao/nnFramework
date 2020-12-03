@@ -24,6 +24,13 @@ class Sequential(Model):
         self.backward(y_hat, y[i])
       print("Loss (epoch "+str(e)+") = "+str(-np.average(loss)))
 
+  def predict(self, x):
+    for layer in self.layers:
+      #print(x)
+      x = layer.predict(x)
+    #print(x)
+    return x
+
   def forward(self, x):
     for layer in self.layers:
       x = layer.forward(x)
