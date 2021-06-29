@@ -8,13 +8,13 @@ class Dense(Layer):
     self.set_params(activation=activation)
 
   def setup(self, input_size):
-    self.input_size = input_size
+    self.input_size = input_size[0]
     self.w = np.random.random(size=(self.nodes, self.input_size))
     self.b = np.random.random(size=(self.nodes, 1))
 
     self.x = np.zeros((self.nodes, 1))
 
-    return self.nodes
+    return np.array([self.nodes])
 
   def forward(self, x):
     x = x.reshape((-1,1))
@@ -26,10 +26,10 @@ class Dense(Layer):
     a = self.activation(z)
     return a
 
-  def backward(self, dA, optimizer, alpha):
-    dz = np.multiply(dA, self.d_activation(self.z))
-    dw = np.dot(dz, self.x.T)
-    db = dz
+  def backward(self, dA, optimizer, alpha):           # dA comes from the next layer. For the last layer it's dL/d(y_hat)
+    dz = np.multiply(dA, self.d_activation(self.z))   # dz refers to dA/dz
+    dw = np.dot(dz, self.x.T)                         # dw refers to dA/dw
+    db = dz                                           # db refers to dA/db
     self.w = optimizer(self.w, dw, alpha)
     self.b = optimizer(self.b, db, alpha)
 

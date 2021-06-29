@@ -12,7 +12,7 @@ class Sequential(Model):
     self.epochs = epochs
     self.alpha = alpha
 
-    input_size = X.shape[1]
+    input_size = X.shape[1:]
     for layer in self.layers:
       input_size = layer.setup(input_size)
 
@@ -38,7 +38,7 @@ class Sequential(Model):
 
   def backward(self, y_hat, y):
     y = y.reshape(y_hat.shape)
-    dA = self.d_loss_function(y_hat, y)
+    dL = self.d_loss_function(y_hat, y)
 
     for layer in reversed(self.layers):
-      dA = layer.backward(dA, self.optimizer, self.alpha)
+      dL = layer.backward(dL, self.optimizer, self.alpha)
